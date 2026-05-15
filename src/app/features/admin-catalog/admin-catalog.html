@@ -1,0 +1,94 @@
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Ajouter un nouveau gâteau</h2>
+
+  <!-- Message de succès -->
+  @if (successMessage) {
+    <div class="mb-6 p-4 text-green-800 bg-green-50 rounded-lg border border-green-200">
+      {{ successMessage }}
+    </div>
+  }
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Champ Nom -->
+    <div>
+      <label for="name" class="block text-sm font-semibold text-gray-700 mb-1"
+        >Nom du produit</label
+      >
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Ex: Bûche de Noël"
+        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 p-2.5 border"
+      />
+      @if (productForm.controls.name.touched && productForm.controls.name.errors?.['required']) {
+        <span class="text-red-500 text-xs mt-1">Le nom est requis.</span>
+      }
+    </div>
+
+    <!-- Champ Description -->
+    <div>
+      <label for="description" class="block text-sm font-semibold text-gray-700 mb-1"
+        >Description</label
+      >
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Description appétissante..."
+        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 p-2.5 border"
+      ></textarea>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button
+      type="submit"
+      [disabled]="productForm.invalid || isSubmitting"
+      class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+      {{ isSubmitting ? 'Enregistrement...' : 'Créer le produit' }}
+    </button>
+  </form>
+</div>
+
+<!-- ... Ton formulaire existant est au-dessus ... -->
+
+<div class="max-w-4xl mx-auto mt-12 mb-20">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Catalogue Actuel</h2>
+
+  <!-- Message si aucun produit -->
+  @if (products().length === 0) {
+    <div class="text-center p-8 bg-gray-50 rounded-xl border border-gray-200 text-gray-500">
+      Aucun produit dans le catalogue pour le moment. Créez-en un via le formulaire ci-dessus !
+    </div>
+  }
+
+  <!-- Grille de produits -->
+  @if (products().length > 0) {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (product of products(); track product.id) {
+        <div
+          class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow relative"
+        >
+          <!-- Badge de statut (Actif/Inactif) -->
+          <span
+            [ngClass]="product.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+            class="absolute top-4 right-4 text-xs font-bold px-2 py-1 rounded-full"
+          >
+            {{ product.active ? 'Actif' : 'Inactif' }}
+          </span>
+
+          <h3 class="text-lg font-bold text-gray-800 mb-2 pr-12">{{ product.name }}</h3>
+          <p class="text-gray-600 text-sm mb-4">{{ product.description }}</p>
+
+          <!-- Affichage du nombre de déclinaisons -->
+          <div
+            class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-500"
+          >
+            <span>{{ product.variants.length || 0 }} déclinaison(s)</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
