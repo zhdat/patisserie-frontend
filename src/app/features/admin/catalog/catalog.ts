@@ -1,16 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductService } from '../../core/services/product.service';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-admin-catalog',
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
-  templateUrl: './admin-catalog.html',
-  styleUrl: './admin-catalog.css',
+  templateUrl: './catalog.html',
+  styleUrl: './catalog.css',
 })
-export class AdminCatalog implements OnInit {
+export class Catalog implements OnInit {
   private fb = inject(FormBuilder);
   private productService = inject(ProductService);
 

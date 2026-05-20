@@ -1,0 +1,57 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="text-center mb-16">
+    <h2 class="font-serif text-4xl font-bold text-black mb-4">Notre Carte</h2>
+    <p class="text-gray-500 max-w-2xl mx-auto text-sm leading-relaxed">
+      Découvrez nos créations artisanales, préparées chaque matin avec passion dans notre atelier
+      marseillais. Commandez en ligne et venez retirer vos pâtisseries en boutique.
+    </p>
+  </div>
+
+  @if (activeProducts().length === 0) {
+    <div class="text-center py-20 text-gray-400">
+      <p class="text-lg">Nos pâtissiers préparent actuellement la nouvelle carte...</p>
+      <p class="text-sm mt-2">Revenez très vite pour découvrir nos gourmandises !</p>
+    </div>
+  }
+
+  @if (activeProducts().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      @for (product of activeProducts(); track product.id) {
+        <div class="group cursor-pointer flex flex-col">
+          <div class="relative w-full h-80 mb-6 overflow-hidden bg-gray-50">
+            <img
+              ngSrc="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?q=80&w=800&auto=format&fit=crop"
+              alt="{{ product.name }}"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out"
+              fill
+            />
+          </div>
+
+          <div class="text-center grow flex flex-col">
+            @if (product.categories?.length) {
+              <span
+                class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-2 font-bold block"
+              >
+                {{ product.categories[0] }}
+              </span>
+            }
+            <h3 class="font-serif text-2xl font-bold text-black mb-3">{{ product.name }}</h3>
+
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-2">
+              {{ product.description }}
+            </p>
+
+            <div class="mt-auto">
+              <button
+                (click)="addToCart(product)"
+                class="w-full border border-black text-black hover:bg-black hover:text-white transition-colors duration-300 py-3 text-xs uppercase tracking-widest font-bold"
+              >
+                Ajouter au panier
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

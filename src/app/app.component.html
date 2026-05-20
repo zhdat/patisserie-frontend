@@ -1,0 +1,58 @@
+<div class="min-h-screen font-sans text-gray-900 flex flex-col">
+  <nav class="bg-white border-b border-gray-100 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div class="flex-1 flex justify-start space-x-12">
+        <a
+          routerLink="/"
+          routerLinkActive="text-black"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors font-bold relative group"
+        >
+          Accueil
+          <span
+            class="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          routerLink="/boutique"
+          routerLinkActive="text-black"
+          class="text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors font-bold relative group"
+        >
+          La Carte
+          <span
+            class="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all group-hover:w-full"
+          ></span>
+        </a>
+      </div>
+
+      <div class="shrink-0 text-center cursor-pointer" routerLink="/">
+        <h1 class="font-serif text-3xl font-bold text-black tracking-wide">
+          GD Pâtisserie<span class="text-amber-600">.</span>
+        </h1>
+      </div>
+
+      <div class="flex-1 flex justify-end items-center space-x-10">
+        <a
+          routerLink="/panier"
+          routerLinkActive="text-black"
+          class="text-[11px] uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors flex items-center font-bold relative group"
+        >
+          Panier ({{ cartItemCount() }})
+          <span
+            class="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          routerLink="/admin"
+          class="text-[11px] uppercase tracking-[0.2em] text-white bg-black hover:bg-gray-800 px-6 py-3 transition-colors font-bold rounded-sm"
+        >
+          Espace Pâtissier
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="grow">
+    <router-outlet />
+  </main>
+</div>

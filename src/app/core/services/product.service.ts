@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { CreateProductRequest, ProductModel } from '../models/product.model.model';
+import { CreateProductRequestModel, ProductModel } from '../models/product.model';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ProductService {
 
   products = signal<ProductModel[]>([]);
 
-  createProduct(request: CreateProductRequest): Observable<ProductModel> {
+  createProduct(request: CreateProductRequestModel): Observable<ProductModel> {
     return this.http.post<ProductModel>(this.apiUrl, request).pipe(
       tap((newProduct) => {
         this.products.update((currentProducts) => [...currentProducts, newProduct]);
