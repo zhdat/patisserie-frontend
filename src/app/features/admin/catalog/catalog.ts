@@ -11,8 +11,8 @@ import { ProductService } from '../../../core/services/product.service';
   styleUrl: './catalog.css',
 })
 export class Catalog implements OnInit {
-  private fb = inject(FormBuilder);
-  private productService = inject(ProductService);
+  private readonly fb = inject(FormBuilder);
+  private readonly productService = inject(ProductService);
 
   // Création du formulaire avec validation
   productForm = this.fb.nonNullable.group({
